@@ -58,16 +58,19 @@ def determinePosition(image: Image, name:str) -> bool:
     if (prev==1):
         bars.append(width-left-1)
     if (len(bars)==1):
-        print(name+"|inside")
+        #print(name+"|inside")
         return False
     elif(bars[0]<bars[1]):
-        print(name+"|left")
+        #print(name+"|left")
         return False
     elif(bars[0]>bars[1]):
-        print(name+"|right")
+        #print(name+"|right")
         return True
 
 # Returns if the current image is a valid image or not 
 def validImage(image: Image) -> bool:
-    #TODO: Implement a way to determine if the image is valid or not
+    try:
+        determinePosition(image,"")
+    except:
+        return False
     return True
