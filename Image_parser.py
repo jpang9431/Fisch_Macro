@@ -12,6 +12,7 @@ def displayImage(image: Image, name:str):
             text+="\n" 
         file.write(text)
         
+#0 is the black bar color, 1 is any other color, if this prints out 2 then the fish line is within the fishing bar, otherwise if it is 4 then the fish line is not within the fishing bar
 def processImage(image: Image, name:str):
     width, height = image.size
     with open(name+".csv","w") as file:
