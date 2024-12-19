@@ -1,3 +1,5 @@
+from PIL import Image
+import os
 import keyboard
 import pyautogui
 import pyscreeze
@@ -16,8 +18,22 @@ region = (left,height-1,right-left,1)
 
 counter = 0
 
-while True:
+'''while True:
     keyboard.wait("e")
     screenshot = pyautogui.screenshot(imageFilename=str(counter)+".png",region=region)
     counter+=1
-    print("e")
+    print("e")'''
+
+
+
+
+def displayImage(image: Image):
+    im = Image.open(image)
+    width, height = im.size
+    print("width: "+str(width)+", height: "+str(height))
+
+    for i in range(width):
+        for j in range(height):
+            print(im.getpixel((i,j)))
+
+displayImage("0.png")
