@@ -13,7 +13,7 @@ def displayImage(image: Image, name:str):
         file.write(text)
         
 #0 is the black bar color, 1 is any other color, if this prints out 2 then the fish line is within the fishing bar, otherwise if it is 4 then the fish line is not within the fishing bar
-def processImage(image: Image, name:str):
+def processImage(image: Image, name:str) -> None:
     width, height = image.size
     with open(name+".csv","w") as file:
         text = ""
@@ -37,7 +37,7 @@ def processImage(image: Image, name:str):
         file.write(text)
 
 #Determines where the fishing bar is realively to the fish bar, returns true if need to click/hold down mouse, returns false if need to do nothing (aka no click and lift down click mouse)
-def determinePosition(image: Image, name:str):
+def determinePosition(image: Image, name:str) -> bool:
     width, height = image.size
     bars = []
     prev = 0
@@ -67,3 +67,7 @@ def determinePosition(image: Image, name:str):
         print(name+"|right")
         return True
 
+# Returns if the current image is a valid image or not 
+def validImage(image: Image) -> bool:
+    #TODO: Implement a way to determine if the image is valid or not
+    return True

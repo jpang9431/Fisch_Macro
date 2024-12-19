@@ -38,7 +38,7 @@ def getPillowScreenShots(name:str,path="")-> Image:
     im2.save(fp=path+name+"_small.png")
     return im2
 
-def getPillowScreenShot(name:str,path="")-> Image:
+def getPillowScreenShot()-> Image:
     im = ImageGrab.grab(bbox=bbox)
     return im
 
