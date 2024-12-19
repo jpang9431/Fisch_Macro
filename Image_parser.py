@@ -36,5 +36,30 @@ def processImage(image: Image, name:str):
         print(name+"|"+str(counter))
         file.write(text)
 
-    
-    
+def determinePosition(image: Image, name:str):
+    width, height = image.size
+    bars = []
+    prev = 0
+    left = -1
+    for i in range(width):
+        sumOfValues = sum(image.getpixel((i,0)))
+        if (sumOfValues<100):
+            sumOfValues=0
+        else:
+            sumOfValues=1
+        if (sumOfValues!=prev):
+            prev = sumOfValues
+            if (left==-1):
+                left = i
+            else:
+                bars.append(i-left)
+                left = -1
+    if (prev==1):
+        bars.append(width-left-1)
+    if (len(bars)==1):
+        print(name+"|inside")
+    elif(bars[0]<bars[1]):
+        print(name+"|left")
+    elif(bars[0]>bars[1]):
+        print(name+"|right")
+

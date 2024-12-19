@@ -15,7 +15,8 @@ def collectData():
         print("e")
 
 def testSum(path:str,name:str):
-    ip.processImage(Image.open(path),name+"_sum")
+    '''ip.processImage(Image.open(path),name+"_sum")'''
+    ip.determinePosition(Image.open(path),name)
 
 if __name__ == "__main__":
     '''collectData()'''
