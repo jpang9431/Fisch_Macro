@@ -1,3 +1,5 @@
+from PIL import Image
+import os
 import keyboard
 import pyautogui
 import pyscreeze
@@ -16,8 +18,8 @@ region = (left,height-1,right-left,1)
 
 counter = 0
 
-while True:
-    keyboard.wait("e")
-    screenshot = pyautogui.screenshot(imageFilename=str(counter)+".png",region=region)
-    counter+=1
-    print("e")
+
+def getScreenShot(name:str,path=""):
+    pyautogui.screenshot(imageFilename=path+name+"_full.png")
+    pyautogui.screenshot(imageFilename=path+name+"_small.png",region=region)
+
