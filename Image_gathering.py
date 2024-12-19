@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image, ImageGrab, ImageShow
 import os
 import keyboard
 import pyautogui
@@ -16,6 +16,7 @@ right = int(width * .7)
 height = int(height * .85)
 
 region = (left,height-1,right-left,1)
+bbox = (left,height-1,right,height)
 
 counter = 0
 
@@ -29,6 +30,11 @@ def getScreenShotSaved(name:str,path=""):
     elapsedTime2 = datetime.now() - currentTime
     print("Time to take full screenshot: "+str(elapsedTime1))
     print("Time to take small screenshot: "+str(elapsedTime2))
+
+def getPillowScreenShot(name:str,path="")-> Image:
+    im = ImageGrab.grab(bbox=bbox)
+    im.show()
+    return im
 
 def getScreenShot(name:str,path="") -> Image:
     return pyautogui.screenshot(region=region)
