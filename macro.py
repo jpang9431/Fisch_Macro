@@ -8,7 +8,8 @@ def collectData():
 
     while True:
         keyboard.wait("e")
-        ig.getPillowScreenShot(str(counter))
+        ip.displayImage(ig.getPillowScreenShots(str(counter)),str(counter))
+        
         counter+=1
         print("e")
 
