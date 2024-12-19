@@ -13,4 +13,5 @@ def collectData():
         print("e")
 
 if __name__ == "__main__":
-    collectData()
+    '''collectData()'''
+    ip.displayImage("0.png","0")
