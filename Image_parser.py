@@ -36,6 +36,7 @@ def processImage(image: Image, name:str):
         print(name+"|"+str(counter))
         file.write(text)
 
+#Determines where the fishing bar is realively to the fish bar, returns true if need to click/hold down mouse, returns false if need to do nothing (aka no click and lift down click mouse)
 def determinePosition(image: Image, name:str):
     width, height = image.size
     bars = []
@@ -58,8 +59,11 @@ def determinePosition(image: Image, name:str):
         bars.append(width-left-1)
     if (len(bars)==1):
         print(name+"|inside")
+        return False
     elif(bars[0]<bars[1]):
         print(name+"|left")
+        return False
     elif(bars[0]>bars[1]):
         print(name+"|right")
+        return True
 
