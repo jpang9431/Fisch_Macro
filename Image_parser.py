@@ -3,13 +3,13 @@ import os
 
 def displayImage(image: Image, name=str):
     im = Image.open(image)
-    print(im.size())
-    width, height = im.size()
-    with open(name+".csv") as file:
+    width, height = im.size
+    with open(name+".csv","w") as file:
         test = ""
-        for i in range(width):
-            for j in range(height):
-                test+=im.getpixel((i,j))+","
+        for i in range(height):
+            for j in range(width):
+                test+=str(im.getpixel((j,i)))+","
+            test = test[:-1]
             test+="\n"
         file.write(test)
 
