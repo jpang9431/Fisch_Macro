@@ -75,6 +75,34 @@ def determinePosition(image: Image, name:str) -> bool:
         lastAction = "right"
         return True
 
+def determinePositionV2(image: Image, name:str) -> str:
+    width, height = image.size
+    bars = []
+    prev = 0
+    left = -1
+    for i in range(width):
+        sumOfValues = sum(image.getpixel((i,0)))
+        if (sumOfValues<100):
+            sumOfValues=0
+        else:
+            sumOfValues=1
+        if (sumOfValues!=prev):
+            prev = sumOfValues
+            if (left==-1):
+                left = i
+            else:
+                bars.append(i-left)
+                left = -1
+    if (prev==1):
+        bars.append(width-left-1)
+    global lastAction
+    if (len(bars)==1):
+        return "in"
+    elif(bars[0]<bars[1]):
+        return "left"
+    elif(bars[0]>bars[1]):
+        return "right"
+
 # Returns if the current image is a valid image or not 
 def validImage(image: Image) -> bool:
     try:
@@ -83,25 +111,6 @@ def validImage(image: Image) -> bool:
         return False
     return True
 
-def determineDifference(image: Image, name: str) ->bool:
-    width, height = image.size
-    prev = sum(image.getpixel((0,0)))
-    index=[]
-    with open(name+".csv","w") as file:
-        text = ""
-        for i in range(1,width,1):
-            #print(i)
-            sumOfValues = sum(image.getpixel((i,0)))
-            diff = abs(sumOfValues-prev)
-            if (diff>40):
-                text+=str(diff)+"\n"
-                index.append(i)
-            else:
-                text+=str(0)+"\n"
-            prev = sumOfValues
-        #print(text)
-        print(name+"|"+str(index))
-        file.write(text)
-        file.close()
+
 
             
