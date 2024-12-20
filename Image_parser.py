@@ -24,11 +24,10 @@ def processImage(image: Image, name:str) -> None:
         for i in range(width):
             sumOfValues = sum(image.getpixel((i,0)))
             if (sumOfValues<100):
-                sumOfValues=0
-                text+="0"
+                
+                text+=str(sumOfValues)
             else:
-                sumOfValues=1
-                text+="1"
+                text+=str(sumOfValues)
             if (prev!=sumOfValues):
                 counter+=1
                 prev = sumOfValues

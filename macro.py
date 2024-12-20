@@ -8,7 +8,7 @@ from multiprocessing import Process
 import sys
 
 def collectData():
-    counter = 0
+    counter = 5
 
     while True:
         keyboard.wait("e")
@@ -41,8 +41,9 @@ def gameLoop():
 if __name__ == "__main__":
     #collectData()
     #ip.displayImage("0.png","0")
-    gameLoop()
-    '''for i in range(5):
-        ip.determineDifference(Image.open(str(i)+"_small.png"),str(i))'''
+    #gameLoop()
+    
+    for i in range(7):
+        ip.processImage(Image.open(str(i)+"_small.png"),str(i)+"_sum")
 
 
