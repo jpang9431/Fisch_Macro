@@ -103,4 +103,93 @@ def determineDifference(image: Image, name: str) ->bool:
         file.write(text)
         file.close()
 
+def analyseImage(image: Image):
+    '''
+    Precondition: image has a height of 1
+    Postcondition: analyse the image and determine the position of the capture bar, target bar, and directional arrow
+    '''
+    width, height = image.size
+
+    # prev = -1 #previous pixel sum
+    elevation = 0 #the elevation of the "bump" (the ammount of the sum of the rgb values)
+    # elevatin is 0 for background, 1 for capture bar, 2 for directional arrow, 3 for target bar
+
+    matrix = [[-1 for i in range(2)] for j in range(3)]
+    
+    # captureBarStart = matrix[1-1][0]
+    # captureBarEnd = matrix[1-1][1]
+
+    # directionalArrowStart = matrix[2-1][0]
+    # directionalArrowEnd = matrix[2-1][0]
+
+    # targetBarStart = matrix[3-1][0]
+    # targetBarEnd = matrix[3-1][1]
+
+    for i in range(width):
+        sumation = sum(image.getpixel(i,0))
+        flattenedColor = flattenPixelColor(sumation)
+
+        if(flattenedColor == elevation):
+            # same elevation
+            continue
+        
+        # elevation CHANGED
+        match flattenedColor:
+            case 0:
+                # Set endpoint if not set already
+
+                #TODO setup system to "end" and "start" areas, preferabally functions
+
+                if(matrix[elevation-1][1] != -1):
+                    # check if end area already set
+                    warningLocationAlreadySet(1, elevation, flattenedColor, i, sumation, matrix[elevation-1][1])
+                    warnBehavior()
+                
+                # set endpoint
+                matrix[elevation-1][1] = i
             
+            case 1:
+                # change to catch bar
+
+                if(matrix[elevation-1][0] != -1):
+                    # check if starting point already set
+                    warningLocationAlreadySet(1, elevation, flattenedColor, i, sumation, matrix[elevation-1][1])
+
+            
+
+
+                    
+def warnBehavior():
+    raise ValueError
+
+def warningInvalidElevationChange(fromElevation, toElevation, pixelNum: int, rgbSumation: int):
+    print("The elevation change from " + fromElevation + " to " + toElevation + " is invalid (pixel location: " + pixelNum + ", sumation of: " + rgbSumation + ")")
+
+def warningLocationAlreadySet(location: int, fromElevation, toElevation, pixelNum: int, rgbSumation: int, originalLocation: int):
+    print("The ", end="")
+    
+    if(location == 0):
+        print("end ", end="")
+    else:
+        print("start ", end ="")
+
+    print("location for elevation " + str(fromElevation) + " has already been defined at " + str(originalLocation) + "\nOccured at pixel #"+pixelNum+"with a sum of "+ rgbSumation + " and a classification of " + toElevation)
+
+
+
+def flattenPixelColor(sumation: int) -> int:
+    '''
+    Precondition: 
+    Postcondition: 
+    '''
+    
+    if (sumation == 233):
+        # target block color
+        return 3
+    elif (sumation == 400):
+        # arrow color
+        return 2
+    elif (sumation < 100):
+        return 0
+    else:
+        return 1
