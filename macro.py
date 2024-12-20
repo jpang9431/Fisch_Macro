@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image, ImageFilter
 import keyboard
 import Image_gathering as ig
 import Image_parser as ip
@@ -64,11 +64,18 @@ if __name__ == "__main__":
     #collectData()
     #ip.displayImage("0.png","0")
     '''gameLoop()'''
+    palette = [
+        79,51,44,
+        132,133,135,
+        67,75,91,
+        0,0,0
+    ]
+    palleteIamge = Image.open("pixil-frame-0.png")
     for i in range(5):
         im = Image.open(str(i)+"_full.png")
         im = im.crop(bbox)
         im.save(str(i)+"_small.png")
-        im = im.convert("1")
+        im = im.filter(ImageFilter.EDGE_ENHANCE_MORE)
         im.save(str(i)+"bw.png")
         #ip.determineDifference(im,str(i))'''
 
