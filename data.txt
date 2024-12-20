@@ -1,0 +1,18 @@
+# elevation CHANGED
+        match flattenedColor:
+            case 0:
+                # Set endpoint if not set already
+
+                if(elevation == 2):
+                    warningInvalidElevationChange(2, 0, i, sumation)
+                    warnBehavior()
+
+                #TODO setup system to "end" and "start" areas, preferabally functions
+
+                startElevation(matrix, elevation, flattenedColor, sumation, i)
+            
+            case 1:
+                # change to catch bar
+
+                startElevation(matrix, elevation, flattenedColor, sumation, i)
+                end
