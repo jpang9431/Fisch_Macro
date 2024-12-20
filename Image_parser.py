@@ -1,6 +1,8 @@
 from PIL import Image
 import os
 
+lastAction = ""
+
 def displayImage(image: Image, name:str):
     width, height = image.size
     with open(name+".csv","w") as file:
@@ -57,14 +59,20 @@ def determinePosition(image: Image, name:str) -> bool:
                 left = -1
     if (prev==1):
         bars.append(width-left-1)
+    global lastAction
     if (len(bars)==1):
         #print(name+"|inside")
-        return False
+        if (lastAction=="right"):
+            return True
+        else:
+            return False
     elif(bars[0]<bars[1]):
         #print(name+"|left")
+        lastAction = "left"
         return False
     elif(bars[0]>bars[1]):
         #print(name+"|right")
+        lastAction = "right"
         return True
 
 # Returns if the current image is a valid image or not 
@@ -74,3 +82,26 @@ def validImage(image: Image) -> bool:
     except:
         return False
     return True
+
+def determineDifference(image: Image, name: str) ->bool:
+    width, height = image.size
+    prev = sum(image.getpixel((0,0)))
+    index=[]
+    with open(name+".csv","w") as file:
+        text = ""
+        for i in range(1,width,1):
+            #print(i)
+            sumOfValues = sum(image.getpixel((i,0)))
+            diff = abs(sumOfValues-prev)
+            if (diff>40):
+                text+=str(diff)+"\n"
+                index.append(i)
+            else:
+                text+=str(0)+"\n"
+            prev = sumOfValues
+        #print(text)
+        print(name+"|"+str(index))
+        file.write(text)
+        file.close()
+
+            

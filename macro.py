@@ -4,7 +4,8 @@ import Image_gathering as ig
 import Image_parser as ip
 import time
 import Keyboard_Controler_Win as kc
-
+from multiprocessing import Process
+import sys
 
 def collectData():
     counter = 0
@@ -25,18 +26,23 @@ def func1():
         testSum(str(i)+"_small.png",str(i))
 
 def gameLoop():
+    keyboard.wait("e") 
+    print("e")
+    currentlyInputting = False
     while True:
         im = ig.getPillowScreenShot()
-        if(not ip.validImage(im)):
-            time.sleep(0.02)
-            continue
-
         if ip.determinePosition(im, ""):
-            kc.inputSpace()
-        else:
-            kc.releaseSpace()
-
+            keyboard.send("space")
+            #if (not currentlyInputting):
+                #kc.inputSpace()
+        #else:
+            #kc.releaseSpace()
+            
 if __name__ == "__main__":
     #collectData()
     #ip.displayImage("0.png","0")
     gameLoop()
+    '''for i in range(5):
+        ip.determineDifference(Image.open(str(i)+"_small.png"),str(i))'''
+
+
