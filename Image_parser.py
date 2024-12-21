@@ -271,7 +271,7 @@ def flattenPixelColor(sumation: int) -> int:
     elif ((sumation > 140 and sumation < 180) or (sumation > 233)):
         return 1
 
-def edgeDetection(image:int, name: str) ->int:
+def edgeDetection(image:int, name: str) -> bool:
     width, height = image.size
     prev = 0
     left = -1
@@ -298,3 +298,5 @@ def edgeDetection(image:int, name: str) ->int:
     print(name+"|"+str(bars))
     return bars
 
+def getCenterOfBar(bar):
+    return (bar[0]+bar[1])/2
