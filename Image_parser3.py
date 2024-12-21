@@ -24,12 +24,9 @@ def analyseImage(image: Image):
 
         sumation = sum(image.getpixel((i,0)))
 
-        
-
-        #print(mode)
-
         match mode:
             case 0:
+                # look for the start of the fish bar or the arrow
                 match sumation:
                     case 233:
                         mode = 1
@@ -38,12 +35,14 @@ def analyseImage(image: Image):
                         mode = 2
                         matrix[1][0] = i
             case 1:
+                # find the end of the fish bar
                 while(sum(image.getpixel((i+1,0))) == FISH_BAR):
                     i+=1
                 matrix[0][1] = i
                 fish = True
                 mode = 0
             case 2:
+                # find the end of the arrow
                 while((sum(image.getpixel((i+1,0)))) == ARROW):
                     i+=1
                 matrix[1][1] = i
@@ -54,7 +53,7 @@ def analyseImage(image: Image):
 
     check = True
     start = matrix[1][1]
-    multiplier = matrix[1][1] - matrix[1][0]
+    multiplier = matrix[1][1] - matrix[1][0] + 1
     i = 1
     while check:
         i+=1
@@ -66,15 +65,16 @@ def analyseImage(image: Image):
         sumation = sum(image.getpixel((location,0)))
         if(sumation < 140):
             check = False
-    
-    location = start
-    if(i%2):
-        location = start - multiplier * 10
-    else:
-        location = start + multiplier * 10
 
-    print("center of capture bar is approximatly at " + str(location))
-    print("fish bar is at " + str(matrix[0][0]) + " to " + str(matrix[0][1]))
+    if(i%2):
+        location = start - multiplier * 24
+    else:
+        location = start + multiplier * 24
+    
+    #print("start is at " + str(start) + " and multiplier is " + str(multiplier))
+
+    #print("center of capture bar is approximatly at " + str(location))
+    #print("fish bar is at " + str(matrix[0][0]) + " to " + str(matrix[0][1]))
     fishCenter = (matrix[0][0] + matrix[0][1]) / 2
     return fishCenter > location
                 
