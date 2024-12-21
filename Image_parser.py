@@ -214,29 +214,21 @@ def edgeDetection(image:int, name: str) ->int:
     bars = [[],[]]
     for i in range(width):
         sumOfValues = sum(image.getpixel((i,0)))
-        
         if (sumOfValues<100):
             sumOfValues=0
-        
-      
         if (not prev==233 and sumOfValues==233):
             bars[0].append(i)
         elif(prev==233 and not sumOfValues==233):
             bars[0].append(i)
-        
         if (prev==0 and not sumOfValues==0):
             left = i
-            
-        if (not prev==0 and sumOfValues==0):
-            if (i-left>lastFishingBar):
-                lastFishingBar = i-left
-                bars[1] = [left,i]
-                
-            
+        elif (not prev==0 and sumOfValues==0 and i-left>lastFishingBar):
+            lastFishingBar = i-left
+            bars[1] = [left,i]
         prev = sumOfValues
-    if (not prev==0):
-            if (width-left>lastFishingBar):
-                lastFishingBar = i-left
-                bars[1] = [left,i]
+    if (not prev==0 and width-left>lastFishingBar):
+            lastFishingBar = i-left
+            bars[1] = [left,i]
     print(name+"|"+str(bars))
     return bars
+
