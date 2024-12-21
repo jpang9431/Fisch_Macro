@@ -42,8 +42,8 @@ if __name__ == "__main__":
     #collectData()
     #ip.displayImage("0.png","0")
     #gameLoop()
-    
-    for i in range(7):
-        ip.processImage(Image.open(str(i)+"_small.png"),str(i)+"_sum")
+    for i in range(8):
+        ip.simpleSum(Image.open(str(i)+"_small.png"),str(i)+"_sum")
+        ip.edgeDetection(Image.open(str(i)+"_small.png"),str(i))
 
 
