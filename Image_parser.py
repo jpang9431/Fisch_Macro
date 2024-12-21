@@ -298,5 +298,13 @@ def edgeDetection(image:int, name: str) -> bool:
     #print(name+"|"+str(bars))
     return bars
 
+def determineWhatToDo(bar):
+    fish = getCenterOfBar(bar[0])
+    fishingBar = getCenterOfBar(bar[1])
+    if (fishingBar<fish):
+        return True
+    else:
+        return False    
+
 def getCenterOfBar(bar):
     return (bar[0]+bar[1])/2
