@@ -13,7 +13,18 @@ def displayImage(image: Image, name:str):
             text = text[:-1]
             text+="\n" 
         file.write(text)
-        
+
+def simpleSum(image: Image, name:str):
+    width, height = image.size
+    with open(name+".csv","w") as file:
+        text = ""
+        for i in range(width):
+            for j in range(height):
+                text+=str(sum(image.getpixel((i,j))))+","
+            text = text[:-1]
+            text+="\n" 
+        file.write(text)
+
 #0 is the black bar color, 1 is any other color, if this prints out 2 then the fish line is within the fishing bar, otherwise if it is 4 then the fish line is not within the fishing bar
 def processImage(image: Image, name:str) -> None:
     width, height = image.size
@@ -34,7 +45,7 @@ def processImage(image: Image, name:str) -> None:
             text+="\n" 
         if (prev==1):
             counter+=1
-        print(name+"|"+str(counter))
+        #print(name+"|"+str(counter))
         file.write(text)
 
 #Determines where the fishing bar is realively to the fish bar, returns true if need to click/hold down mouse, returns false if need to do nothing (aka no click and lift down click mouse)
@@ -259,5 +270,31 @@ def flattenPixelColor(sumation: int) -> int:
         return 2
     elif ((sumation > 140 and sumation < 180) or (sumation > 233)):
         return 1
-    else:
-        return 0
+
+def edgeDetection(image:int, name: str) ->int:
+    width, height = image.size
+    prev = 0
+    left = -1
+    lastFishingBar = 0
+    #Fish bar is at the 0 index and the fishing bar is at the 1 index
+    bars = [[],[]]
+    for i in range(width):
+        sumOfValues = sum(image.getpixel((i,0)))
+        if (sumOfValues<100):
+            sumOfValues=0
+        if (not prev==233 and sumOfValues==233):
+            bars[0].append(i)
+        elif(prev==233 and not sumOfValues==233):
+            bars[0].append(i)
+        if (prev==0 and not sumOfValues==0):
+            left = i
+        elif (not prev==0 and sumOfValues==0 and i-left>lastFishingBar):
+            lastFishingBar = i-left
+            bars[1] = [left,i]
+        prev = sumOfValues
+    if (not prev==0 and width-left>lastFishingBar):
+            lastFishingBar = i-left
+            bars[1] = [left,i]
+    print(name+"|"+str(bars))
+    return bars
+
