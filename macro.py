@@ -68,19 +68,41 @@ def timeTest():
         print("Jason wins")
     else:
         print("Bida wins")
+
+def ip3Test():
+    for i in range(8):
+        name = str(i)+"_small.png"
+        print("Testing " + name)
+        image = Image.open(name)
+        ip3.analyseImage(image)
+        print()
+
+def startAutomation():
+    prev = True
+    while True:
+        im = ig.getPillowScreenShot()
+        if result := ip3.analyseImage(im):
+            kc.inputSpace()
+        elif(prev == True):
+            kc.releaseSpace()
+        prev = result
+        print(result)
             
 if __name__ == "__main__":
-    '''for i in range(8):
-        print(str(ip.getCenterOfBar(ip.edgeDetection(Image.open(str(i)+"_small.png"),str(i))[1])))'''
-    #collectData()
-    #ip.displayImage("0.png","0")
-    #gameLoop()
-    
-    '''for i in range(7):
-        ip.processImage(Image.open(str(i)+"_small.png"),str(i)+"_sum")'''
-    
-    timeTest()
+    #timeTest()
+    #ip3Test()
+    startAutomation()
 
 
 
+
+
+'''for i in range(8):
+print(str(ip.getCenterOfBar(ip.edgeDetection(Image.open(str(i)+"_small.png"),str(i))[1])))'''
+#collectData()
+#ip.displayImage("0.png","0")
+#gameLoop()
+
+'''for i in range(7):
+ip.processImage(Image.open(str(i)+"_small.png"),str(i)+"_sum")'''
         

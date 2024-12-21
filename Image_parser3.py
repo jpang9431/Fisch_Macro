@@ -14,10 +14,10 @@ def analyseImage(image: Image):
     fish = False
     arrow = False
 
-    matrix = [[-1 for i in range(2)] for j in range(3)]
+    matrix = [[-1 for i in range(2)] for j in range(2)]
     
     i = 0
-    while i < width:
+    while i+1 < width:
         i+=1
         if(fish and arrow):
             break
@@ -36,20 +36,23 @@ def analyseImage(image: Image):
                         matrix[1][0] = i
             case 1:
                 # find the end of the fish bar
-                while(sum(image.getpixel((i+1,0))) == FISH_BAR):
+                while(i+1 < width and sum(image.getpixel((i+1,0))) == FISH_BAR):
                     i+=1
                 matrix[0][1] = i
                 fish = True
                 mode = 0
             case 2:
                 # find the end of the arrow
-                while((sum(image.getpixel((i+1,0)))) == ARROW):
+                while(i+1 < width and (sum(image.getpixel((i+1,0)))) == ARROW):
                     i+=1
                 matrix[1][1] = i
                 arrow = True
                 mode = 0
     
     #print("fish: " + str(matrix[0][0]) + " to " + str(matrix[0][1]) + "\narrow: " + str(matrix[1][0]) + " to " + str(matrix[1][1]))
+
+    if(not fish or not arrow and matrix[0][1]-matrix[0][0] > 3):
+        return False
 
     check = True
     start = matrix[1][1]
@@ -73,8 +76,7 @@ def analyseImage(image: Image):
     
     #print("start is at " + str(start) + " and multiplier is " + str(multiplier))
 
-    #print("center of capture bar is approximatly at " + str(location))
-    #print("fish bar is at " + str(matrix[0][0]) + " to " + str(matrix[0][1]))
+    print("center of capture bar is approximatly at " + str(location))
+    print("fish bar is at " + str(matrix[0][0]) + " to " + str(matrix[0][1]))
     fishCenter = (matrix[0][0] + matrix[0][1]) / 2
     return fishCenter > location
-                
