@@ -38,19 +38,48 @@ def gameLoop():
                 #kc.inputSpace()
         #else:
             #kc.releaseSpace()
+
+def timeTest():
+    JScore = 0
+    BScore = 0
+    for i in range(8):
+        
+        name = str(i)+"_small.png"
+        image = Image.open(name)
+
+        print("Image " + name)
+        
+        current = time.time()
+        ip3.analyseImage(image)
+        bTime = time.time()-current
+        current = time.time()
+        ip.edgeDetection(image, name)
+        jTime = time.time()-current
+
+        print("BTime: "+str(bTime))
+        print("JTime: "+str(jTime))
+        if bTime > jTime:
+            JScore+=1
+        else:
+            BScore+=1
+    print("JScore: "+str(JScore))
+    print("BScore: "+str(BScore))
+    if(JScore > BScore):
+        print("Jason wins")
+    else:
+        print("Bida wins")
             
 if __name__ == "__main__":
-    for i in range(8):
-        print(str(ip.getCenterOfBar(ip.edgeDetection(Image.open(str(i)+"_small.png"),str(i))[1])))
+    '''for i in range(8):
+        print(str(ip.getCenterOfBar(ip.edgeDetection(Image.open(str(i)+"_small.png"),str(i))[1])))'''
     #collectData()
     #ip.displayImage("0.png","0")
     #gameLoop()
-    ''' for i in range(8):
-        print("for image "+str(i))
-        print(ip.analyseImage(Image.open(str(i)+"_small.png")))'''
+    
     '''for i in range(7):
         ip.processImage(Image.open(str(i)+"_small.png"),str(i)+"_sum")'''
     
+    timeTest()
 
 
 

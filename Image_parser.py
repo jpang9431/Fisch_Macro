@@ -295,7 +295,7 @@ def edgeDetection(image:int, name: str) -> bool:
     if (not prev==0 and width-left>lastFishingBar):
             lastFishingBar = i-left
             bars[1] = [left,i]
-    print(name+"|"+str(bars))
+    #print(name+"|"+str(bars))
     return bars
 
 def getCenterOfBar(bar):
