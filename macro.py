@@ -1,7 +1,8 @@
 from PIL import Image
 import keyboard
 import Image_gathering as ig
-import Image_parser3 as ip
+import Image_parser3 as ip3
+import Image_parser as ip
 import time
 import Keyboard_Controler_Win as kc
 from multiprocessing import Process
@@ -39,14 +40,17 @@ def gameLoop():
             #kc.releaseSpace()
             
 if __name__ == "__main__":
+    for i in range(8):
+        print(str(ip.getCenterOfBar(ip.edgeDetection(Image.open(str(i)+"_small.png"),str(i))[1])))
     #collectData()
     #ip.displayImage("0.png","0")
     #gameLoop()
-    for i in range(8):
+    ''' for i in range(8):
         print("for image "+str(i))
-        print(ip.analyseImage(Image.open(str(i)+"_small.png")))
+        print(ip.analyseImage(Image.open(str(i)+"_small.png")))'''
     '''for i in range(7):
         ip.processImage(Image.open(str(i)+"_small.png"),str(i)+"_sum")'''
+    
 
 
 
