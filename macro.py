@@ -78,12 +78,14 @@ def ip3Test():
         print()
 
 def startAutomation():
+    prev = True
     while True:
         im = ig.getPillowScreenShot()
         if result := ip3.analyseImage(im):
             kc.inputSpace()
-        else:
+        elif(prev == True):
             kc.releaseSpace()
+        prev = result
         print(result)
             
 if __name__ == "__main__":

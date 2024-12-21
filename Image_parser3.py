@@ -36,14 +36,14 @@ def analyseImage(image: Image):
                         matrix[1][0] = i
             case 1:
                 # find the end of the fish bar
-                while(sum(image.getpixel((i+1,0))) == FISH_BAR):
+                while(i+1 < width and sum(image.getpixel((i+1,0))) == FISH_BAR):
                     i+=1
                 matrix[0][1] = i
                 fish = True
                 mode = 0
             case 2:
                 # find the end of the arrow
-                while((sum(image.getpixel((i+1,0)))) == ARROW):
+                while(i+1 < width and (sum(image.getpixel((i+1,0)))) == ARROW):
                     i+=1
                 matrix[1][1] = i
                 arrow = True
@@ -51,7 +51,7 @@ def analyseImage(image: Image):
     
     #print("fish: " + str(matrix[0][0]) + " to " + str(matrix[0][1]) + "\narrow: " + str(matrix[1][0]) + " to " + str(matrix[1][1]))
 
-    if(not fish or not arrow):
+    if(not fish or not arrow and matrix[0][1]-matrix[0][0] > 3):
         return False
 
     check = True
